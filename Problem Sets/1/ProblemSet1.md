@@ -64,6 +64,7 @@ Determine:
 
 
 
+
  obtains $\phi_t Tn = 791.16$. 
 
  Since yielding at gross section governs, the tensile capacity based on **LRFD** method is
@@ -105,10 +106,40 @@ $$
 
    $\phi_t T_n = 370.91 kips$
 
-   <div style="text-align: center; width: 100%; border: 2px solid black; padding: 15px; font-weight: bolder; font-size: 1.2em;">Since the block shear capacity is less than the tensile rupture capacity, there will be no path of failure for tensile rupture as the block shear will fail first.</div>
+   <div style="text-align: center; width: 100%; border: 2px solid black; padding: 15px; font-weight: bolder; font-size: 1.2em;">Since the block shear capacity is less than the tensile rupture capacity, there will be no path of failure for tensile rupture as the block shear will fail first. Rather, the path will be that of block shear failure.</div>
 
 # Problem # 2
 
 ### I. Problem
 
 Select a double angle tension member to carry (40 kips DL) and (20 kips LL), member is (15ft) long and will be connected to any one leg by single line of $\dfrac{7}{8}$" diameter bolts. Use A-36 steel. Assume 3 bolts per line.
+
+### II. Solution
+
+1. Factored load
+   $$
+   T = 1.2(40) + 1.6(20)
+   $$
+
+   $$
+   T = 80.00 kips
+   $$
+
+2. Section selection
+
+3. Checking for slenderness ration $\dfrac{L}{r} \leq 300$
+
+4. xdfgdfg
+
+
+
+
+
+
+
+
+
+References:
+
+American Institute of Steel Construction, Specification for Structural Steel Buildings, 2016
+
