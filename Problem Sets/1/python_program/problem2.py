@@ -18,9 +18,12 @@ print("Pn = " + str(Pn) + ' kips\n')
 Fy = 36
 Fu = 58
 
-# Sections = (Section_name, Ag, x, t, rx)
-sections = [('4x4x1/2', 3.75, 1.18, 0.5, 1.21),
-            ('3x3x1/2', 2.75, 0.932, 0.5, 0.898)]
+# Sections = (Section_name, Ag, x, t, rx, main_leg_length)
+sections = [('4x4x1/2', 3.75, 1.18, 0.5, 1.21, 4),
+            ('3x3x1/2', 2.75, 0.932, 0.5, 0.898, 3),
+            ('3x3x1/4', 1.382, 0.839, .25, 0.932, 3),
+            ('3x2x1/2', 2.25, 0.583, 0.5, 0.924, 3),
+            ('2x2x1/2', 1.75, 0.678, .5, 0.58, 2)]
 
 for section in sections:
     print('Try ' + section[0] + ':')
@@ -35,9 +38,9 @@ for section in sections:
     print('= = = = = = = = = = = = = = =')
     print('Tensile Yielding\n= = = = = = = = = = = = = = =')
     φtPn_tensile_yielding_lrfd = 0.9 * Fy * Ag * 2
-    print("φtPn_tensile_yielding_lrfd = " + str(φtPn_tensile_yielding_lrfd))
+    print("φtPn_tensile_yielding_lrfd = " + str(round(φtPn_tensile_yielding_lrfd, 2)))
     φtPn_tensile_yielding_asd = Fy * Ag / 1.67 * 2
-    print("φtPn_tensile_yielding_asd = " + str(φtPn_tensile_yielding_asd))
+    print("φtPn_tensile_yielding_asd = " + str(round(φtPn_tensile_yielding_asd, 2)))
 
     # Tensile rupture
     print('= = = = = = = = = = = = = = =')
@@ -51,58 +54,39 @@ for section in sections:
         U = U1
     else:
         U = U2
-    print('U = ' + str(U))
+
     An = Ag - hole_diameter * t
     Ae = U * An
     φtPn_tensile_rupture_lrfd = 0.75 * Fy * Ae * 2
-    print("φtPn_tensile_rupture_lrfd = " + str(φtPn_tensile_rupture_lrfd))
+    print("φtPn_tensile_rupture_lrfd = " + str(round(φtPn_tensile_rupture_lrfd, 2)))
     φtPn_tensile_rupture_asd = Fy * Ae / 2.0 * 2
-    print("φtPn_tensile_rupture_asd = " + str(φtPn_tensile_rupture_asd))
+    print("φtPn_tensile_rupture_asd = " + str(round(φtPn_tensile_rupture_asd, 2)))
+
+    # Analysis for block shear
+    print('= = = = = = = = = = = = = = =')
+    print('Block Shear Failure')
+    print('= = = = = = = = = = = = = = =')
+    # Assume that distance from center of last bolt to tip of angle bar if 3inches
+    dTip = 2
+    # Solve for areas
+    Agr = 0  # Gross area acted upon by shear
+    Agt = 0  # Gross area acted upon by tension
+    Anr = 0  # Net area acted upon by shear
+    Ant = 0  # Net area acted upon by tension
+
+    Agr = (dTip + hole_distances * (bolt_quantity - 1)) * t
+    # Assume bolt is placed in the middle of one leg
+    Agt = section[5] / 2 * t
+    Anr = Agr - (bolt_quantity - 1 + 0.5) * hole_diameter * t
+    Ant = Agt - 0.5 * hole_diameter * t
+    Tn = 0
+    if (Fu * Ant) >= (0.6 * Fu * Anr):
+        Tn = 0.6 * Fy * Agr + Fu * Ant
+    else:
+        Tn = 0.6 * Fu * Anr + Fy * Agt
+    φtPn_shear_block_capacity_lrfd = 0.9 * Tn
+    print('φtPn_shear_block_capacity_lrfd = ' + str(round(φtPn_shear_block_capacity_lrfd, 2)))
 
     print('x x x x x x x x x x x x x x x x')
     print()
 
-# # Try L4x4x1/2 angle
-# print('Try L4x1/2 angles:')
-# Ag = 3.75
-# x = 1.18
-# t = .5
-# # For 2 angles spaced 3/8in
-# ry = 1.83
-# rx = 1.21
-# r = rx
-# if rx < r:
-#     r = rx
-# if ry < r:
-#     r = ry
-#
-# print("Slenderness ratio = " + str(L / (r / 12)))
-# print()
-# # Tensile yielding
-# print('= = = = = = = = = = = = = = =')
-# print('Tensile Yielding\n= = = = = = = = = = = = = = =')
-# φtPn_tensile_yielding_lrfd = 0.9 * Fy * Ag * 2
-# print("φtPn_tensile_yielding_lrfd = " + str(φtPn_tensile_yielding_lrfd))
-# φtPn_tensile_yielding_asd = Fy * Ag / 1.67 * 2
-# print("φtPn_tensile_yielding_asd = " + str(φtPn_tensile_yielding_asd))
-#
-# # Tensile rupture
-# print('= = = = = = = = = = = = = = =')
-# print('Tensile Rupture')
-# print('= = = = = = = = = = = = = = =')
-# U1 = 1 - x / ((bolt_quantity-1) * hole_distances)   # Case 2 From Table D3.1 (Shear Lag factors for Connections to Tension Members)
-# U2 = 0.6                                            # Case 8 From Table D3.1 (Shear Lag factors for Connections to Tension Members)
-# U = 0
-#
-# if U1 > U2:
-#     U = U1
-# else:
-#     U = U2
-# print('U = ' + str(U))
-# An = Ag - hole_diameter * t
-# Ae = U * An
-# φtPn_tensile_rupture_lrfd = 0.75 * Fy * Ae * 2
-# print("φtPn_tensile_rupture_lrfd = " + str(φtPn_tensile_rupture_lrfd))
-# φtPn_tensile_rupture_asd = Fy * Ae / 2.0 * 2
-# print("φtPn_tensile_rupture_asd = " + str(φtPn_tensile_rupture_asd))
-#
