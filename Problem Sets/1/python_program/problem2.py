@@ -59,7 +59,7 @@ for section in sections:
     Ae = U * An
     φtPn_tensile_rupture_lrfd = 0.75 * Fu * Ae * 2
     print("φtPn_tensile_rupture_lrfd = " + str(round(φtPn_tensile_rupture_lrfd, 2)))
-    φtPn_tensile_rupture_asd = Fy * Ae / 2.0 * 2
+    φtPn_tensile_rupture_asd = Fu * Ae / 2.0 * 2
     # print("φtPn_tensile_rupture_asd = " + str(round(φtPn_tensile_rupture_asd, 2)))
 
     # Analysis for block shear
