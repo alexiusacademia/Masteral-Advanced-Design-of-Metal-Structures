@@ -8,7 +8,7 @@ L = 15
 bolt_quantity = 3
 
 # Assumptions
-hole_distances = 3
+hole_distances = 2
 
 # Factored load (required tensile strength)
 Pn = 1.2 * DL + 1.6 * LL
@@ -20,10 +20,10 @@ Fu = 58
 
 # Sections = (Section_name, Ag, x, t, rx, main_leg_length)
 sections = [('4x4x1/2', 3.75, 1.18, 0.5, 1.21, 4),
+            ('4x4x1/4', 1.94, 1.09, 0.25, 1.25, 4),
             ('3x3x1/2', 2.75, 0.932, 0.5, 0.898, 3),
             ('3x3x1/4', 1.382, 0.839, .25, 0.932, 3),
-            ('3x2x1/2', 2.25, 0.583, 0.5, 0.924, 3),
-            ('2x2x1/2', 1.75, 0.678, .5, 0.58, 2)]
+            ('3x2x1/2', 2.25, 0.583, 0.5, 0.924, 3)]
 
 for section in sections:
     print('Try ' + section[0] + ':')
@@ -40,7 +40,7 @@ for section in sections:
     φtPn_tensile_yielding_lrfd = 0.9 * Fy * Ag * 2
     print("φtPn_tensile_yielding_lrfd = " + str(round(φtPn_tensile_yielding_lrfd, 2)))
     φtPn_tensile_yielding_asd = Fy * Ag / 1.67 * 2
-    print("φtPn_tensile_yielding_asd = " + str(round(φtPn_tensile_yielding_asd, 2)))
+    # print("φtPn_tensile_yielding_asd = " + str(round(φtPn_tensile_yielding_asd, 2)))
 
     # Tensile rupture
     print('= = = = = = = = = = = = = = =')
@@ -54,13 +54,13 @@ for section in sections:
         U = U1
     else:
         U = U2
-
+    # print('U = ' + str(U))
     An = Ag - hole_diameter * t
     Ae = U * An
-    φtPn_tensile_rupture_lrfd = 0.75 * Fy * Ae * 2
+    φtPn_tensile_rupture_lrfd = 0.75 * Fu * Ae * 2
     print("φtPn_tensile_rupture_lrfd = " + str(round(φtPn_tensile_rupture_lrfd, 2)))
     φtPn_tensile_rupture_asd = Fy * Ae / 2.0 * 2
-    print("φtPn_tensile_rupture_asd = " + str(round(φtPn_tensile_rupture_asd, 2)))
+    # print("φtPn_tensile_rupture_asd = " + str(round(φtPn_tensile_rupture_asd, 2)))
 
     # Analysis for block shear
     print('= = = = = = = = = = = = = = =')
@@ -81,9 +81,9 @@ for section in sections:
     Ant = Agt - 0.5 * hole_diameter * t
     Tn = 0
     if (Fu * Ant) >= (0.6 * Fu * Anr):
-        Tn = 0.6 * Fy * Agr + Fu * Ant
+        Tn = (0.6 * Fy * Agr + Fu * Ant) * 2
     else:
-        Tn = 0.6 * Fu * Anr + Fy * Agt
+        Tn = (0.6 * Fu * Anr + Fy * Agt) * 2
     φtPn_shear_block_capacity_lrfd = 0.9 * Tn
     print('φtPn_shear_block_capacity_lrfd = ' + str(round(φtPn_shear_block_capacity_lrfd, 2)))
 
