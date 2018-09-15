@@ -77,6 +77,7 @@ for section in sections:
     Agr = (dTip + hole_distances * (bolt_quantity - 1)) * t
     # Assume bolt is placed in the middle of one leg
     Agt = section[5] / 2 * t
+    print('Agt = ' + str(Agt))
     Anr = Agr - (bolt_quantity - 1 + 0.5) * hole_diameter * t
     Ant = Agt - 0.5 * hole_diameter * t
     Tn = 0
