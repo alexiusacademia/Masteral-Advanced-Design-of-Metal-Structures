@@ -22,7 +22,7 @@ Fu = 58
 sections = [('4x4x1/2', 3.75, 1.18, 0.5, 1.21, 4),
             ('4x4x1/4', 1.94, 1.09, 0.25, 1.25, 4),
             ('3x3x1/2', 2.75, 0.932, 0.5, 0.898, 3),
-            ('3x3x1/4', 1.382, 0.839, .25, 0.932, 3),
+            ('3x3x1/4', 1.44, 0.842, .25, 0.93, 3),
             ('3x2x1/2', 2.25, 0.583, 0.5, 0.924, 3)]
 
 for section in sections:
@@ -77,9 +77,13 @@ for section in sections:
     Agr = (dTip + hole_distances * (bolt_quantity - 1)) * t
     # Assume bolt is placed in the middle of one leg
     Agt = section[5] / 2 * t
-    print('Agt = ' + str(Agt))
     Anr = Agr - (bolt_quantity - 1 + 0.5) * hole_diameter * t
     Ant = Agt - 0.5 * hole_diameter * t
+    print('Agr = ' + str(Agr))
+    print('Agt = ' + str(Agt))
+    print('Anr = ' + str(Anr))
+    print('Ant = ' + str(Ant))
+
     Tn = 0
     if (Fu * Ant) >= (0.6 * Fu * Anr):
         Tn = (0.6 * Fy * Agr + Fu * Ant) * 2
