@@ -54,7 +54,7 @@ for section in sections:
         U = U1
     else:
         U = U2
-    # print('U = ' + str(U))
+    print('U = ' + str(round(U, 2)))
     An = Ag - hole_diameter * t
     Ae = U * An
     φtPn_tensile_rupture_lrfd = 0.75 * Fu * Ae * 2
