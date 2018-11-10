@@ -62,6 +62,7 @@ $$
 
 
 
+
  obtains $\phi_t Tn = 791.16$. 
 
  Since yielding at gross section governs, the tensile capacity based on **LRFD** method is
@@ -111,6 +112,14 @@ $$
 
 
 
+
+
+
+
+
+
+
+
 # Problem # 2
 
 ### I. Problem
@@ -151,6 +160,8 @@ Select a double angle tension member to carry (40 kips DL) and (20 kips LL), mem
    and so the result from the analysis of this section will be discarded.
 
 5. Assumptions:
+
+   ![](D:\Personal\Masteral\AdvancedDesignOfMetalStructures\Problem Sets\1\images\2-double-angle.jpg)
 
    The following assumptions are applied in the analysis
 
@@ -206,17 +217,23 @@ Select a double angle tension member to carry (40 kips DL) and (20 kips LL), mem
 
 10. Now since I've assumed the location of the bolt, block shear failure capacity can be calculated,
 
-  | Section         | $\phi_t T_n$ |
-  | --------------- | ------------ |
-  | $\angle$4x4x1/2 | 174.42 kips  |
-  | $\angle$4x4x1/4 | 87.21        |
-  | $\angle$3x3x1/2 | 158.22       |
-  | $\angle$3x3x1/4 | ==79.11==    |
-  | $\angle$3x2x1/2 | 158.22       |
+| Section         | $\phi_t T_n$ |
+| --------------- | ------------ |
+| $\angle$4x4x1/2 | 174.42 kips  |
+| $\angle$4x4x1/4 | 87.21        |
+| $\angle$3x3x1/2 | 158.22       |
+| $\angle$3x3x1/4 | ==79.11==    |
+| $\angle$3x2x1/2 | 158.22       |
 
 11. Now based on the above calculations, the section $\angle 3x3x1/4$ failed on both tensile rupture and block shear failure, I will choose the most economical section on the four (4) remaining sections. Rough estimate of the cost can be based on the gross sectional area $A_g$. 
 
    Now since the section with the least gross sectional areas are $\angle 4x4x1/4$ and $\angle 3x2x1/2$, I would choose either of the two based on the following criteria:
+
+
+
+
+
+
 
    - If size of the leg is not a restriction, I would choose 
 
